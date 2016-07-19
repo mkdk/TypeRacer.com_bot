@@ -11,12 +11,18 @@ from selenium import webdriver
 def main(ROOT_PATH, link):
     browser = webdriver.Chrome(os.path.join(ROOT_PATH, 'chromedriver'))
     browser.get(link)
+    time.sleep(4)
+    browser.find_element_by_class_name('gwt-Anchor').click()
+    time.sleep(3)
+    browser.find_element_by_xpath('/html/body/div[4]/div/table/tbody/tr[2]/td/div/div/table[1]/tbody/tr[2]/td/div/table/tbody/tr[1]/td[2]/input').send_keys("QkQ_bot")
+    browser.find_element_by_class_name('gwt-PasswordTextBox').send_keys("pass")
+    browser.find_element_by_class_name('gwt-Button').click()
+    time.sleep(4)
+    p = browser.find_elements_by_xpath('//*[@id="dUI"]/table/tbody/tr[2]/td[2]/div/div[1]/div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td/a')
+    p[0].click()   # start game from title page
+    time.sleep(10)
     while True:
-        time.sleep(4)
-        p = browser.find_elements_by_xpath('//*[@id="dUI"]/table/tbody/tr[2]/td[2]/div/div[1]/div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td/a')
-        p[0].click()   # start game from title page
-        time.sleep(10)
-        time.sleep(5)
+        time.sleep(8)
         fw_id = re.findall(r'\bid="(nhwMiddlegwt-uid-\d+)"', browser.page_source)[0]
         text_id = re.findall(r'\bid="(nhwRightgwt-uid-\d+)"', browser.page_source)[0]
         print(fw_id, text_id)
@@ -30,8 +36,9 @@ def main(ROOT_PATH, link):
             print(i)
             time.sleep(0.9)
         time.sleep(5)
+        fw_id, text_id = None, None
         browser.find_element_by_class_name('raceAgainLink').click()
-        browser.refresh()
+        # browser.refresh()
 
 
 if __name__ == "__main__":
